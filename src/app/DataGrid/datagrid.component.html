@@ -1,0 +1,48 @@
+<dx-data-grid
+	(onCellPrepared)="options.onCellPrepared($event)"
+	[columnAutoWidth]="options.columnAutoWidth"
+	[dataSource]="options.dataSource">
+	<div *ngFor="let column of options.columns">
+		<dxi-column
+			[dataField]="column.dataField"
+			[allowFiltering]="column.allowFiltering"
+			[allowEditing]="column.allowEditing"
+			[dataType]="column.dataType"
+			[format]="options.format"
+			[caption]="column.caption"
+			[width]="column.width"
+			[alignment]="column.alignment"
+			[filterOperations]="column.filterOperations"
+			[cellTemplate]="column.cellTemplate">
+		</dxi-column>
+	</div>
+	<dxo-header-filter
+		[visible]="options.headerFilters">
+	</dxo-header-filter>
+	<dxo-filter-row
+		[visible]="options.filters">
+	</dxo-filter-row>
+	<dxo-selection
+		[mode]="options.selectionMode"
+		[showCheckBoxesMode]="options.selectionCheckboxes">
+	</dxo-selection>
+	<dxo-editing
+		[mode]="options.editingMode"
+		[allowUpdating]="options.allowUpdating"
+		[allowDeleting]="options.allowDeleting"
+		[allowAdding]="options.allowAdding">
+	</dxo-editing>
+	<dxo-paging
+		[pageSize]="options.paging">
+	</dxo-paging>
+
+	<a *dxTemplate="let d of 'link'" href="{{d.value}}">{{croppText(d.value, 70)}}</a>
+
+	<span *dxTemplate="let d of 'compare'">
+		<span *ngIf="(d.data['FileName'] !== d.value && d.value.length) else placeholder">{{d.value}}</span>
+		<ng-template #placeholder>
+			<em class="placeholder">Same as File Name</em>
+		</ng-template>
+	</span>
+</dx-data-grid>
+
